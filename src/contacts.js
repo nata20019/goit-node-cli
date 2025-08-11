@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
-const contactsPath = path.resolve("src", "contacts.json");
+const contactsPath = path.resolve("src", "db", "contacts.json");
 console.log(contactsPath);
 
 export async function listContacts() {
