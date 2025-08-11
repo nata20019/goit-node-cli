@@ -9,14 +9,35 @@ export async function listContacts() {
   return JSON.parse(data);
 }
 
-// async function getContactById(contactId) {
-//   // ...твій код. Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
-// }
+export async function getContactById(contactId) {
+  const contacts = await listContacts();
+  const contact = contacts.find((item) => item.id === contactId);
+  return contact || null;
+}
 
-// async function removeContact(contactId) {
-//   // ...твій код. Повертає об'єкт видаленого контакту. Повертає null, якщо контакт з таким id не знайдений.
-// }
+export async function removeContact(contactId) {
+  const contacts = await listContacts();
+  const index = contacts.findIndex((item) => item.id === contactId);
 
-// async function addContact(name, email, phone) {
-//   // ...твій код. Повертає об'єкт доданого контакту (з id).
-// }
+  if (index === -1) {
+    return null;
+  }
+
+  const [removedContact] = contacts.splice(index, 1);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return removedContact;
+}
+
+export async function addContact(name, email, phone) {
+  const contacts = await listContacts();
+  const newContact = {
+    id: String(Date.now()),
+    name,
+    email,
+    phone,
+  };
+
+  contacts.push(newContact);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
+}
