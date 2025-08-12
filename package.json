@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js --action list"
+    "start": "node src/index.js --action",
+    "list": "node src/index.js --action list",
+    "add": "node src/index.js --action add",
+    "get": "node src/index.js --action get",
+    "remove": "node src/index.js --action remove"
   },
   "repository": {
     "type": "git",
